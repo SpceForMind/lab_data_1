@@ -1,25 +1,14 @@
 
+int index_first_negative(int a[20],int size);
+int index_last_negative(int a[20],int size);
+
 int multi_before_and_after_negative(int a[20], int size)
 {
 	int fn, ln, i, result = 1;
 
-	for(i = 0; i < size; ++i)
-	{
-		if(a[i] < 0)
-		{
-			fn = i;
-			break;
-		}
-	}
-		
-	for(i = size -1 ; i >= 0; --i)
-	{
-		if(a[i] < 0)
-		{
-			ln = i;
-			break;
-		}
-	}
+	fn = index_first_negative(a, size);
+	ln = index_last_negative(a, size);	
+
 
 	for(i = 0; i < fn; ++i)
 		result *= a[i];
