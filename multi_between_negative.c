@@ -1,6 +1,5 @@
 
-int index_first_negative(int a[20],int size);
-int index_last_negative(int a[20],int size);
+#include "function1_2.h"
 
 int multi_between_negative(int a[20], int size)
 {
