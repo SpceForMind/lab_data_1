@@ -36,11 +36,11 @@ int main()
 			break;
 
 		case 2:
-			printf("multy between negatives first and last: %d\n", multi_between_negative(a,size));
+			printf("multy between negatives first and last: %d\n", multi_between_negative(a,size, index_first_negative(a, size), index_last_negative(a, size)));
 			break;
 
 		case 3:
-			printf("multy before negatives first and last: %d\n", multi_before_and_after_negative(a, size));	
+			printf("multy before negatives first and last: %d\n", multi_before_and_after_negative(a, size, index_first_negative(a, size), index_last_negative(a, size)));	
 			break;
 
 		default:
