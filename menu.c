@@ -1,13 +1,15 @@
 
 #include <stdio.h>
 
-#include "function1_2.h"
-#include "function3_4.h"
+#include "index_first_negative.h"
+#include "index_last_negative.h"
+#include "multi_between_negative.h"
+#include "multi_before_and_after_negative.h"
 
 
 int main()
 {
-	int i, size = 0, check = 0;
+	int i, size = 0;
 	int a[20];
 
       	int value;
