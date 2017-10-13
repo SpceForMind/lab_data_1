@@ -1,8 +1,7 @@
 
 #include <stdio.h>
 
-#include "function1_2.h"
-#include "function3_4.h"
+#include "function.h"
 
 
 int main()
