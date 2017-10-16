@@ -13,31 +13,26 @@ int main()
 	int a[21];
 
 
-	for(i = 0; i < 20; ++i)
-	{
-		size += scanf("%d", &a[i]);
-	}
-	
-	size -= 1;
-	printf("sizeof(a) = %d\n", size);
-	
+	size += scanf("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", &a[0], &a[1], &a[2], &a[3], &a[4], &a[5], &a[6], &a[7], &a[8], &a[9], &a[10], &a[11], &a[12], &a[13], &a[14], &a[15], &a[16], &a[17], &a[18], &a[19], &a[20]);
 
+	size -= 1;
+	
 	switch(a[0])
 	{
 		case 0:
-			printf("index first negative: %d\n", index_first_negative((a+1), size));			
+			printf("%d\n", index_first_negative((a+1), size));			
 			break;
 
 		case 1:
-  			printf("index last negative: %d\n", index_last_negative((a+1), size));
+  			printf("%d\n", index_last_negative((a+1), size));
 			break;
 
 		case 2:
-			printf("multy between negatives first and last: %d\n", multi_between_negative((a+1),size));
+			printf("%d\n", multi_between_negative((a+1),size));
 			break;
 
 		case 3:
-			printf("multy before negatives first and last: %d\n", multi_before_and_after_negative((a+1), size));	
+			printf("%d\n", multi_before_and_after_negative((a+1), size));	
 			break;
 
 		default:
