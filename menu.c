@@ -10,39 +10,34 @@
 int main()
 {
 	int i, size = 0;
-	int a[20];
+	int a[21];
 
-      	int value;
-
-        printf("Enter value: ");
-	scanf("%d", &value);
-        printf("value = %d\n", value);
-					
 
 	for(i = 0; i < 20; ++i)
 	{
 		size += scanf("%d", &a[i]);
 	}
 	
+	size -= 1;
 	printf("sizeof(a) = %d\n", size);
+	
 
-
-	switch(value)
+	switch(a[0])
 	{
 		case 0:
-			printf("index first negative: %d\n", index_first_negative( a, size));			
+			printf("index first negative: %d\n", index_first_negative((a+1), size));			
 			break;
 
 		case 1:
-  			printf("index last negative: %d\n", index_last_negative(a, size));
+  			printf("index last negative: %d\n", index_last_negative((a+1), size));
 			break;
 
 		case 2:
-			printf("multy between negatives first and last: %d\n", multi_between_negative(a,size));
+			printf("multy between negatives first and last: %d\n", multi_between_negative((a+1),size));
 			break;
 
 		case 3:
-			printf("multy before negatives first and last: %d\n", multi_before_and_after_negative(a, size));	
+			printf("multy before negatives first and last: %d\n", multi_before_and_after_negative((a+1), size));	
 			break;
 
 		default:
