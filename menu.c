@@ -9,7 +9,7 @@
 
 int main()
 {
-	int i, size = 0;
+	int size = 0;
 	int a[21];
 
 
