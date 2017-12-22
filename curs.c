@@ -150,6 +150,59 @@ void free_arr(char **names, char **authors, int *years, int length)
 
 }
 
+
+
+void swap(MusicalComposition **a, MusicalComposition **b)
+{
+	MusicalComposition *time_a = *a;
+	*a = *b;
+	*b = time_a;
+}
+
+
+void print_rev_list(MusicalComposition *last)
+{
+	while(last!= NULL)
+	{
+		printf("%s\n", last->name);
+		last = last->pred;
+	}
+
+	printf("---------------\n");
+}
+
+void swap_el(MusicalComposition **first, MusicalComposition **second)
+{
+	MusicalComposition *pred_first = (*first)->pred, *next_first = (*first)->next;
+	MusicalComposition *pred_second = (*second)->pred, *next_second = (*second)->next;
+	MusicalComposition **time_second = second;
+	MusicalComposition **time_first = first;
+	if((*first)->next == *second)
+	{
+		MusicalComposition *time_first = *first, *time_second = *second;
+		//printf("*first = %p *second = %p (*second)->next = %p (*firs)->next = %p\n", *first, *second, (*first)->next, (*second)->next);
+		swap(first, second);
+	//printf("*first = %p *second = %p (*second)->next = %p (*first)->next = %p\n", *first, *second, (*first)->next, (*second)->next);
+		(*first)->next = *second;
+		(*first)->pred = pred_first;
+		(*second)->next = next_second;
+		(*second)->pred = *first;
+		(*second)->next->pred = *second;
+	}
+	else
+	{
+		swap(first, second);
+		(*second)->next = next_second;
+		(*second)->pred = pred_second;
+		(*second)->next->pred = *second;
+		(*first)->next = next_first;
+		(*first)->pred = pred_first;
+		(*first)->next->pred = *first;
+	}
+}
+
+
+
 int main()
 {
 	int length, i = 0;
@@ -182,15 +235,20 @@ int main()
 	
 	free_arr(names, authors, years, length);
 	printList(head);
+	print_rev_list(head->next->next->next);	
 	
-	
-	char *substring = (char *)malloc(sizeof(char) * 80);
+//	char *substring = (char *)malloc(sizeof(char) * 80);
 
-	fgets(substring, 80, stdin);
-	printf("substring = %s", substring);
+//	fgets(substring, 80, stdin);
+//	printf("substring = %s", substring);
 
-	delete_by_sub_El(&head, substring);
+	//delete_by_sub_El(&head, substring);
+//	printList(head);
+//	printf("head = %p\n", head);
+	swap_el(&head, &head->next);
 	printList(head);
+	print_rev_list(head->next->next->next);
+	//printf("head = %p\n", head);
 
 	return 0;
 }
