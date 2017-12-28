@@ -100,17 +100,26 @@ void deleteWords(InfoWord *head)
 	{	
 		InfoWord *time_head = head;
 
-		while(time_head)
+		while(time_head->next)
 		{
 			if(strncmp(head->word, time_head->next->word, strlen(head->word) + 1) == 0)
 			{
-				if(head->next!= NULL)
+				if(time_head->next!= NULL)
+				{
 					time_head->next = time_head->next->next;
+					continue;
+				}
 				else
+				{
 					time_head->next = NULL;
+					break;
+				}
 			}
 
 			time_head = time_head->next;
+
+			if(time_head == NULL)
+				break;
 		}	
 			
 		head = head->next;
@@ -194,9 +203,8 @@ int main()
 	InfoWord *head = NULL;
 	
 	createList(&head, text, nwords);
+	countWordInText(head, text);
 	deleteWords(head);
-//	printWords(head);
-//	countWordInText(head, text);
-//	printInfo(head);
+	printInfo(head);
 	return 0;
 }
