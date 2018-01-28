@@ -14,6 +14,51 @@ int PointerIsNull(void *p)
 }
 
 
+
+void Swap(Item *a, Item *b)
+{
+	if(PointerIsNull(a) || PointerIsNull(b))
+		return;
+
+	Item time_a = *a;
+	*a = *b;
+	*b = time_a;
+}
+
+void QuickSort(Item *arr, int start, int end)
+{
+	if(PointerIsNull(arr))
+		return;
+
+	int left = start;
+	int right = end;
+	int pmid = arr[(left + right) / 2];
+
+	while(left <= right)
+	{
+		while(arr[left] < pmid)
+			left++;
+
+		while(arr[right] > pmid)
+			right--;
+		
+		if(left <= right)
+		{
+			Swap(&arr[left], &arr[right]);
+			++left;
+			--right;	
+		}
+	}
+	
+	if(start < right)
+		QuickSort(arr, start, right);
+	
+	if(end > left)
+		QuickSort(arr, left, end);
+
+}
+
+
 void TurnSort(Item *arr, const unsigned int n, int (*p_cmp)(Item *, Item *))
 {
 	if(PointerIsNull(arr))
