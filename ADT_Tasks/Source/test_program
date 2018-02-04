@@ -1,0 +1,26 @@
+
+#include <stdio.h>
+
+void DoSomething()
+{
+	float pi;
+	char *string;
+}
+
+void PrintName(char *name)
+{
+	int y;
+}
+
+
+int main()
+{
+	int x;
+	double d_x;
+	char c;
+	char *str;
+
+
+	return 0;
+}
+
