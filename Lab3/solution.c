@@ -12,7 +12,7 @@
 
 typedef struct
 {
-	int value;
+	long value;
 	char str[BUFSIZE];
 } Pair;
 
@@ -70,11 +70,11 @@ int IsTxtFile(const char *file_name)
 void AddPair(Pair *arr_pair, int index, const char *file_name)
 {
 	FILE *file = fopen(file_name, "r");
-
+	
 	if(file)
 	{
 		fgets(arr_pair[index].str, BUFSIZE, file);
-		arr_pair[index].value = atoi(arr_pair[index].str);	
+		arr_pair[index].value = atol(arr_pair[index].str);	
 	}
 	fclose(file);
 }
@@ -131,14 +131,15 @@ void WriteInFile(Pair *arr_pair, int index, char *file_name)
 	if(file)
 		for(int i = 0; i < index; ++i)
 			fwrite(arr_pair[i].str, sizeof(char), strlen(arr_pair[i].str) + 1, file); 
+	fclose(file);
 }
 
 
 
 int Compare(const void *pair1, const void *pair2)
 {
-	int v1 = ((Pair *)pair1)->value;
-	int v2 = ((Pair *)pair2)->value;
+	long v1 = ((Pair *)pair1)->value;
+	long v2 = ((Pair *)pair2)->value;
 
 	return v1 - v2;
 }
@@ -150,7 +151,6 @@ int main()
 	Pair *arr_pair = (Pair *)malloc(ARRSIZE * sizeof(Pair));
 	BypassingDirs(".", arr_pair, &index_pair);
 	qsort(arr_pair, index_pair, sizeof(Pair), Compare);
-//	PrintArrPair(arr_pair, index_pair);	
 	WriteInFile(arr_pair, index_pair, "result.txt");
 
 	return 0;
