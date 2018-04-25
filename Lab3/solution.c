@@ -123,6 +123,18 @@ void BypassingDirs(const char *dir_name, Pair *arr_pair, int *index_pair)
 }
 
 
+void WriteInFile(Pair *arr_pair, int index, char *file_name)
+{
+	FILE *file = fopen(file_name, "w");
+	char buf[BUFSIZE];
+
+	if(file)
+		for(int i = 0; i < index; ++i)
+			fwrite(arr_pair[i].str, sizeof(char), strlen(arr_pair[i].str) + 1, file); 
+}
+
+
+
 int Compare(const void *pair1, const void *pair2)
 {
 	int v1 = ((Pair *)pair1)->value;
@@ -138,8 +150,8 @@ int main()
 	Pair *arr_pair = (Pair *)malloc(ARRSIZE * sizeof(Pair));
 	BypassingDirs(".", arr_pair, &index_pair);
 	qsort(arr_pair, index_pair, sizeof(Pair), Compare);
-	PrintArrPair(arr_pair, index_pair);	
-
+//	PrintArrPair(arr_pair, index_pair);	
+	WriteInFile(arr_pair, index_pair, "result.txt");
 
 	return 0;
 }
