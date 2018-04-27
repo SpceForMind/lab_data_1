@@ -37,20 +37,26 @@ void PrintFile(const char *file_name)
 void PrintArrPair(Pair *arr_pair, int index)
 {
 	for(int i = 0; i < index; ++i)
-		printf("%s", arr_pair[i].str);
+		printf("index %d:%s\n", i, arr_pair[i].str);
 }
 
 
 
 //Check str from file for correct
-int IsValid(char *str)
+int IsValid(char *file_name)
 {
-	char *regexp = "^[[:digit:]]+[[:space:]][[^:space:]]+";
+	FILE *file = fopen(file_name, "r");
+
+	char str[BUFSIZE];
+	fgets(str, BUFSIZE, file);
+
+	char *regexp = "^-?[[:digit:]]+[[:space:]]";
 	regex_t regex_comp;
 
 	if(regcomp(&regex_comp, regexp, REG_EXTENDED))
 		return 0;
-
+	
+	fclose(file);
 	return !regexec(&regex_comp, str, 0, NULL, 0);
 }
 
@@ -67,16 +73,18 @@ int IsTxtFile(const char *file_name)
 }
 
 
-void AddPair(Pair *arr_pair, int index, const char *file_name)
+void AddPair(Pair **arr_pair, int index, const char *file_name)
 {
 	FILE *file = fopen(file_name, "r");
 	
 	if(file)
 	{
-		fgets(arr_pair[index].str, BUFSIZE, file);
-		arr_pair[index].value = atoll(arr_pair[index].str);	
+		fgets((*arr_pair)[index].str, BUFSIZE, file);
+		if(strstr((*arr_pair)[index].str, "\n"))
+			*strstr((*arr_pair)[index].str, "\n") = 0;
+		(*arr_pair)[index].value = atoll((*arr_pair)[index].str);	
+		fclose(file);
 	}
-	fclose(file);
 }
 
 
@@ -107,12 +115,14 @@ void BypassingDirs(const char *dir_name, Pair **arr_pair, int *index_pair)
 		{
 			strcat(file_name, "/");
 			strcat(file_name, cur_file->d_name);
-
+			
 			if(*index_pair % ARRSIZE == 0 && *index_pair!= 0)
 				*arr_pair = (Pair *)realloc(*arr_pair, sizeof(Pair) * (*index_pair + ARRSIZE));
-			AddPair(*arr_pair, *index_pair, file_name);
-			++*index_pair;
-
+			if(IsValid(file_name))
+			{
+				AddPair(arr_pair, *index_pair, file_name);
+				++*index_pair;
+			}
 			file_name[len] = '\0';
 		}	
 
@@ -131,7 +141,8 @@ void WriteInFile(Pair *arr_pair, int index, char *file_name)
 	if(file)
 		for(int i = 0; i < index; ++i)
 		{
-			strcat(arr_pair[i].str, "\n");
+			if(i != (index - 1) && (arr_pair[i].str[strlen(arr_pair[i].str) - 1]!= '\n'))
+				strcat(arr_pair[i].str, "\n");
 			fwrite(arr_pair[i].str, sizeof(char), strlen(arr_pair[i].str), file); 
 		}
 	fclose(file);
