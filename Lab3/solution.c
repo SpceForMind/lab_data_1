@@ -12,7 +12,7 @@
 
 typedef struct
 {
-	long value;
+	long long int value;
 	char str[BUFSIZE];
 } Pair;
 
@@ -74,7 +74,7 @@ void AddPair(Pair *arr_pair, int index, const char *file_name)
 	if(file)
 	{
 		fgets(arr_pair[index].str, BUFSIZE, file);
-		arr_pair[index].value = atol(arr_pair[index].str);	
+		arr_pair[index].value = atoll(arr_pair[index].str);	
 	}
 	fclose(file);
 }
@@ -141,10 +141,15 @@ void WriteInFile(Pair *arr_pair, int index, char *file_name)
 
 int Compare(const void *pair1, const void *pair2)
 {
-	long v1 = ((Pair *)pair1)->value;
-	long v2 = ((Pair *)pair2)->value;
-
-	return v1 - v2;
+	long int v1 = ((Pair *)pair1)->value;
+	long int v2 = ((Pair *)pair2)->value;
+	
+	if(v1 > v2)
+		return 1;
+	else if(v1 == v2)
+		return 0;
+	else if(v1 < v2)	
+		return -1;
 }
 
 
