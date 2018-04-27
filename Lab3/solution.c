@@ -130,7 +130,10 @@ void WriteInFile(Pair *arr_pair, int index, char *file_name)
 
 	if(file)
 		for(int i = 0; i < index; ++i)
+		{
+			strcat(arr_pair[i].str, "\n");
 			fwrite(arr_pair[i].str, sizeof(char), strlen(arr_pair[i].str), file); 
+		}
 	fclose(file);
 }
 
