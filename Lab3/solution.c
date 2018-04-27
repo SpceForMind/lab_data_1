@@ -7,8 +7,11 @@
 #include <regex.h>
 
 #define BUFSIZE 128
-#define WAYSIZE 100
+#define WAYSIZE 200
 #define ARRSIZE 10
+
+#define ROOTDIR "root"
+#define RESULTFILE "result.txt"
 
 typedef struct
 {
@@ -168,9 +171,9 @@ int main()
 {
 	int index_pair = 0;
 	Pair *arr_pair = (Pair *)malloc(ARRSIZE * sizeof(Pair));
-	BypassingDirs(".", &arr_pair, &index_pair);
+	BypassingDirs(ROOTDIR, &arr_pair, &index_pair);
 	qsort(arr_pair, index_pair, sizeof(Pair), Compare);
-	WriteInFile(arr_pair, index_pair, "result.txt");
-
+	WriteInFile(arr_pair, index_pair, RESULTFILE);
+	
 	return 0;
 }
