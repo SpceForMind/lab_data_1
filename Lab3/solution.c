@@ -80,7 +80,7 @@ void AddPair(Pair *arr_pair, int index, const char *file_name)
 }
 
 
-void BypassingDirs(const char *dir_name, Pair *arr_pair, int *index_pair)
+void BypassingDirs(const char *dir_name, Pair **arr_pair, int *index_pair)
 {
 	DIR *cur_dir = opendir(dir_name);
 	char file_name[WAYSIZE];
@@ -109,8 +109,8 @@ void BypassingDirs(const char *dir_name, Pair *arr_pair, int *index_pair)
 			strcat(file_name, cur_file->d_name);
 
 			if(*index_pair % ARRSIZE == 0 && *index_pair!= 0)
-				arr_pair = (Pair *)realloc(arr_pair, sizeof(Pair) * (*index_pair + ARRSIZE));
-			AddPair(arr_pair, *index_pair, file_name);
+				*arr_pair = (Pair *)realloc(*arr_pair, sizeof(Pair) * (*index_pair + ARRSIZE));
+			AddPair(*arr_pair, *index_pair, file_name);
 			++*index_pair;
 
 			file_name[len] = '\0';
@@ -149,7 +149,7 @@ int main()
 {
 	int index_pair = 0;
 	Pair *arr_pair = (Pair *)malloc(ARRSIZE * sizeof(Pair));
-	BypassingDirs(".", arr_pair, &index_pair);
+	BypassingDirs(".", &arr_pair, &index_pair);
 	qsort(arr_pair, index_pair, sizeof(Pair), Compare);
 	WriteInFile(arr_pair, index_pair, "result.txt");
 
