@@ -84,7 +84,7 @@ void AddPair(Pair **arr_pair, int index, const char *file_name)
 	{
 		fgets((*arr_pair)[index].str, BUFSIZE, file);
 		if(strstr((*arr_pair)[index].str, "\n"))
-			*strstr((*arr_pair)[index].str, "\n") = 0;
+			*strstr((*arr_pair)[index].str, "\n") = '\0';
 		(*arr_pair)[index].value = atoll((*arr_pair)[index].str);	
 		fclose(file);
 	}
@@ -144,8 +144,9 @@ void WriteInFile(Pair *arr_pair, int index, char *file_name)
 	if(file)
 		for(int i = 0; i < index; ++i)
 		{
-			if(i != (index - 1) && (arr_pair[i].str[strlen(arr_pair[i].str) - 1]!= '\n'))
+			if(arr_pair[i].str[strlen(arr_pair[i].str) - 1]!= '\n')
 				strcat(arr_pair[i].str, "\n");
+			
 			fwrite(arr_pair[i].str, sizeof(char), strlen(arr_pair[i].str), file); 
 		}
 	fclose(file);
