@@ -121,11 +121,11 @@ void BypassingDirs(const char *dir_name, Pair **arr_pair, int *index_pair)
 			
 			if(*index_pair % ARRSIZE == 0 && *index_pair!= 0)
 				*arr_pair = (Pair *)realloc(*arr_pair, sizeof(Pair) * (*index_pair + ARRSIZE));
-		//	if(IsValid(file_name))
-		//	{
+			if(IsValid(file_name))
+			{
 				AddPair(arr_pair, *index_pair, file_name);
 				++*index_pair;
-		//	}
+			}
 			file_name[len] = '\0';
 		}	
 
