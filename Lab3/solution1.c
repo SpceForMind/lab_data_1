@@ -6,7 +6,7 @@
 #include <regex.h>
 
 #define STRING_SIZE 200
-#define RESULT_FILE "result1.txt"
+#define RESULT_FILE "result.txt"
 #define START_DIR "root"
 
 typedef struct FileData {
